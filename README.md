@@ -7,7 +7,7 @@
 
 EfficientPS is a state-of-the-art top-down approach for panoptic segmentation, where the goal is to assign semantic labels (e.g., car, road, tree and so on) to every pixel in the input image as well as instance labels (e.g. an id of 1, 2, 3, etc) to pixels belonging to thing classes.
 
-![Illustration of EfficientPS](/images/intro.pdf)
+![Illustration of EfficientPS](/images/intro.png)
 
 This repository contains the **Pytorch re-implementation** of our IJCV2021 paper [EfficientPS: Efficient Panoptic Segmentation](https://arxiv.org/abs/2004.02307). The repository builds on [mmdetection](https://github.com/open-mmlab/mmdetection) and [gen-efficientnet-pytorch](https://github.com/rwightman/gen-efficientnet-pytorch) codebases.
 
