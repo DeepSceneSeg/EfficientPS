@@ -1,4 +1,4 @@
-# EfficientPS
+# EfficientPS: Efficient Panoptic Segmentation
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/efficientps-efficient-panoptic-segmentation/panoptic-segmentation-on-cityscapes-val)](https://paperswithcode.com/sota/panoptic-segmentation-on-cityscapes-val?p=efficientps-efficient-panoptic-segmentation) 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/efficientps-efficient-panoptic-segmentation/panoptic-segmentation-on-cityscapes-test)](https://paperswithcode.com/sota/panoptic-segmentation-on-cityscapes-test?p=efficientps-efficient-panoptic-segmentation)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/efficientps-efficient-panoptic-segmentation/panoptic-segmentation-on-mapillary-val)](https://paperswithcode.com/sota/panoptic-segmentation-on-mapillary-val?p=efficientps-efficient-panoptic-segmentation)
@@ -9,19 +9,19 @@ EfficientPS is a state-of-the-art top-down approach for panoptic segmentation, w
 
 ![Illustration of EfficientPS](/images/intro.png)
 
-This repository contains the **Pytorch re-implementation** of our IJCV2021 paper [EfficientPS: Efficient Panoptic Segmentation](https://arxiv.org/abs/2004.02307). The repository builds on [mmdetection](https://github.com/open-mmlab/mmdetection) and [gen-efficientnet-pytorch](https://github.com/rwightman/gen-efficientnet-pytorch) codebases.
+This repository contains the **PyTorch implementation** of our IJCV'2021 paper [EfficientPS: Efficient Panoptic Segmentation](https://arxiv.org/abs/2004.02307). The repository builds on [mmdetection](https://github.com/open-mmlab/mmdetection) and [gen-efficientnet-pytorch](https://github.com/rwightman/gen-efficientnet-pytorch) codebases.
 
 If you find the code useful for your research, please consider citing our paper:
 ```
 @article{mohan2020efficientps,
   title={Efficientps: Efficient panoptic segmentation},
   author={Mohan, Rohit and Valada, Abhinav},
-  journal={arXiv preprint arXiv:2004.02307},
-  year={2020}
+  journal={International Journal of Computer Vision (IJCV)},
+  year={2021}
 }
 ```
 ## Demo
-http://panoptic.cs.uni-freiburg.de/
+http://rl.uni-freiburg.de/research/panoptic
 
 ## System Requirements
 * Linux 
@@ -72,7 +72,7 @@ EfficientPS
 │   │   ├── cityscapes_panoptic_val.json
 │   │   ├── cityscapes_panoptic_val
 ```
-The cityscapes annotations have to be converted into the abovementioned format using
+The cityscapes annotations have to be converted into the aforementioned format using
 `tools/convert_datasets/cityscapes.py`:
 ```shell
 python tools/convert_cityscapes.py ROOT_DIRECTORY_OF_CITYSCAPES ./data/cityscapes/
@@ -109,10 +109,10 @@ Coming Soon !!!
 
 ## Additional Notes:
    * We only provide the single scale evaluation script. Multi-Scale+Flip evaluation further imporves the performance of the model.
-   * This is a re-implementation of EfficientPS, it is not guaranteed to reproduce all numbers in the paper, please refer to the original numbers from [EfficientPS: Efficient Panoptic Segmentation](https://arxiv.org/abs/2004.02307) when making comparison.
+   * This is a re-implementation of EfficientPS in PyTorch. The performance of the trained models might slightly differ from the metrics reported in the paper. Please refer to the metrics reported in [EfficientPS: Efficient Panoptic Segmentation](https://arxiv.org/abs/2004.02307) when making comparisons.
 
 ## Acknowledgements
-We have used utility functions from other open-source projects, we would espeicially thank the authors of:
+We have used utility functions from other open-source projects. We espeicially thank the authors of:
 - [mmdetection](https://github.com/open-mmlab/mmdetection)
 - [gen-efficientnet-pytorch](https://github.com/rwightman/gen-efficientnet-pytorch)
 - [seamseg](https://github.com/mapillary/seamseg.git)
