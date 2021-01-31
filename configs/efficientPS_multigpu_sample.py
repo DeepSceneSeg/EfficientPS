@@ -131,7 +131,7 @@ test_cfg = dict(
         min_stuff_area=2048))
 # dataset settings
 dataset_type = 'CityscapesDataset'
-data_root = 'data/coco_format_city/'
+data_root = 'data/cityscapes/'
 img_norm_cfg = dict(
     mean=[106.433, 116.617, 119.559], std=[65.496, 67.6, 74.123], to_rgb=True)
 train_pipeline = [
