@@ -5,4 +5,121 @@
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/efficientps-efficient-panoptic-segmentation/panoptic-segmentation-on-kitti-panoptic)](https://paperswithcode.com/sota/panoptic-segmentation-on-kitti-panoptic-segmentationl?p=efficientps-efficient-panoptic)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/efficientps-efficient-panoptic-segmentation/panoptic-segmentation-on-indian-driving)](https://paperswithcode.com/sota/panoptic-segmentation-on-panoptic-segmentation-on-indian-driving?p=efficientps-efficient-panoptic)
 
-PyTorch code for training EfficientPS for Panoptic Segmentation
+EfficientPS is a state-of-the-art top-down approach for panoptic segmentation, where the goal is to assign semantic labels (e.g., car, road, tree and so on) to every pixel in the input image as well as instance labels (e.g. an id of 1, 2, 3, etc) to pixels belonging to thing classes.
+
+![Illustration of EfficientPS](/images/intro.pdf)
+
+This repository contains the **Pytorch re-implementation** of our IJCV2021 paper [EfficientPS: Efficient Panoptic Segmentation](https://arxiv.org/abs/2004.02307). The repository builds on [mmdetection](https://github.com/open-mmlab/mmdetection) and [gen-efficientnet-pytorch](https://github.com/rwightman/gen-efficientnet-pytorch) codebases.
+
+If you find the code useful for your research, please consider citing our paper:
+```
+@article{mohan2020efficientps,
+  title={Efficientps: Efficient panoptic segmentation},
+  author={Mohan, Rohit and Valada, Abhinav},
+  journal={arXiv preprint arXiv:2004.02307},
+  year={2020}
+}
+```
+## Demo
+http://panoptic.cs.uni-freiburg.de/
+
+## System Requirements
+* Linux 
+* Python 3.7
+* PyTorch 1.4 
+* CUDA 10.2
+* GCC 7 or 8
+
+**IMPORTANT NOTE**: These requirements are not necessarily mandatory. However, we have only tested the code under the above settings and cannot provide support for other setups.
+
+## Installation
+a. Create a conda virtual environment from the provided environment.yml and activate it.
+```shell
+git clone https://github.com/DeepSceneSeg/EfficientPS.git
+cd EfficientPS
+conda create -n efficientPS_env --file=environment.yml
+conda activate efficientPS_env
+```
+b. Install all other dependencies using pip:
+```bash
+pip install -r requirements.txt
+```
+c. Install EfficientNet implementation
+```bash
+cd efficientNet
+python setup.py develop
+```
+d. Install EfficientPS implementation
+```bash
+cd ..
+python setup.py develop
+```
+## Prepare datasets
+It is recommended to symlink the dataset root to `$EfficientPS/data`.
+If your folder structure is different, you may need to change the corresponding paths in config files.
+
+```
+EfficientPS
+├── mmdet
+├── tools
+├── configs
+├── data
+│   ├── cityscapes
+│   │   ├── annotations
+│   │   ├── train
+│   │   ├── val
+│   │   ├── stuffthingmaps
+│   │   ├── cityscapes_panoptic_val.json
+│   │   ├── cityscapes_panoptic_val
+```
+The cityscapes annotations have to be converted into the abovementioned format using
+`tools/convert_datasets/cityscapes.py`:
+```shell
+python tools/convert_cityscapes.py ROOT_DIRECTORY_OF_CITYSCAPES ./data/cityscapes/
+cd ..
+git clone https://github.com/mcordts/cityscapesScripts.git
+cd cityscapesScripts/cityscapesscripts/preparation
+python create createPanopticImgs.py --dataset-folder ROOT_DIRECTORY_OF_CITYSCAPES --output-folder ../../../EfficientPS/data/cityscapes --set-names val
+```
+
+## Training and Evaluation
+### Training Procedure
+Edit the config file appropriately in configs folder.
+Train with a single GPU:
+```
+python tools/train.py efficientPS_singlegpu_sample.py --work_dir work_dirs/checkpoints --validate 
+```
+Train with multiple GPUS:
+```
+./tools/dist_train.sh efficientPS_multigpu_sample.py ${GPU_NUM} --work_dir work_dirs/checkpoints --validate 
+```
+* --resume_from ${CHECKPOINT_FILE}: Resume from a previous checkpoint file.
+### Evaluation Procedure
+Test with a single GPU:
+```
+python tools/test.py efficientPS_singlegpu_sample.py ${CHECKPOINT_FILE} --eval panoptic
+```
+Test with multiple GPUS:
+```
+./tools/dist_test.sh efficientPS_multigpu_sample.py ${CHECKPOINT_FILE} ${GPU_NUM} --eval panoptic
+```
+
+## Pre-Trained Models
+Coming Soon !!!
+
+## Additional Notes:
+   * We only provide the single scale evaluation script. Multi-Scale+Flip evaluation further imporves the performance of the model.
+   * This is a re-implementation of EfficientPS, it is not guaranteed to reproduce all numbers in the paper, please refer to the original numbers from [EfficientPS: Efficient Panoptic Segmentation](https://arxiv.org/abs/2004.02307) when making comparison.
+
+## Acknowledgements
+We have used utility functions from other open-source projects, we would espeicially thank the authors of:
+- [mmdetection](https://github.com/open-mmlab/mmdetection)
+- [gen-efficientnet-pytorch](https://github.com/rwightman/gen-efficientnet-pytorch)
+- [seamseg](https://github.com/mapillary/seamseg.git)
+
+## Contacts
+* [Abhinav Valada](https://rl.uni-freiburg.de/people/valada)
+* [Rohit Mohan](https://github.com/mohan1914)
+
+## License
+For academic usage, the code is released under the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html) license. For any commercial purpose, please contact the authors.
