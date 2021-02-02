@@ -37,7 +37,7 @@ a. Create a conda virtual environment from the provided environment.yml and acti
 ```shell
 git clone https://github.com/DeepSceneSeg/EfficientPS.git
 cd EfficientPS
-conda create -n efficientPS_env --file=environment.yml
+conda env create -n efficientPS_env --file=environment.yml
 conda activate efficientPS_env
 ```
 b. Install all other dependencies using pip:
