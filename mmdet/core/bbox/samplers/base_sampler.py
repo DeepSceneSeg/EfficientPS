@@ -82,6 +82,16 @@ class BaseSampler(metaclass=ABCMeta):
         # We found that sampled indices have duplicated items occasionally.
         # (may be a bug of PyTorch)
         pos_inds = pos_inds.unique()
+
+        if pos_inds.numel() == 0 and gt_labels is not None: #hack for now
+            bboxes = torch.cat([gt_bboxes, bboxes], dim=0)
+            assign_result.add_gt_(gt_labels)
+            gt_ones = bboxes.new_ones(gt_bboxes.shape[0], dtype=torch.uint8)
+            gt_flags = torch.cat([gt_ones, gt_flags])
+            pos_inds = self.pos_sampler._sample_pos(
+            assign_result, num_expected_pos, bboxes=bboxes, **kwargs)
+            pos_inds = pos_inds.unique()
+
         num_sampled_pos = pos_inds.numel()
         num_expected_neg = self.num - num_sampled_pos
         if self.neg_pos_ub >= 0:

@@ -232,14 +232,14 @@ class CityscapesDataset(CocoDataset):
         if 'panoptic' in metrics:
             eval_results.update(
                 self._evaluate_panoptic(results, outfile_prefix, logger))
-            return 1
+  
         if 'cityscapes' in metrics:
             eval_results.update(
                 self._evaluate_cityscapes(results, outfile_prefix, logger))
             metrics.remove('cityscapes')
 
         # left metrics are all coco metric
-        if len(metrics) > 0:
+        if len(metrics) > 0 and 'panoptic' not in metrics:
             # create CocoDataset with CityscapesDataset annotation
             self_coco = CocoDataset(self.ann_file, self.pipeline.transforms,
                                     self.data_root, self.img_prefix,
@@ -355,7 +355,8 @@ class CityscapesDataset(CocoDataset):
 
         msg = "{:14s}| {:>5s}  {:>5s}  {:>5s} {:>5s}".format("", "PQ", "SQ", "RQ", "N")
         print_log(msg, logger=logger)
- 
+
+        eval_results = {} 
         for name in metrics:
             msg = "{:14s}| {:5.1f}  {:5.1f}  {:5.1f} {:5d}".format(
                 name,
@@ -365,8 +366,10 @@ class CityscapesDataset(CocoDataset):
                 results[name]['n']
             )
             print_log(msg, logger=logger)
+            eval_results[name+'_pq'] = 100 * results[name]['pq']
+            eval_results[name+'_sq'] = 100 * results[name]['sq']
+            eval_results[name+'_rq'] = 100 * results[name]['rq']
 
         shutil.rmtree('tmpDir')
-
-        return results
+        return eval_results
 

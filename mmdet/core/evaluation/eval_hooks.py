@@ -25,7 +25,9 @@ class EvalHook(Hook):
         if not self.every_n_epochs(runner, self.interval):
             return
         from mmdet.apis import single_gpu_test
-        results = single_gpu_test(runner.model, self.dataloader, show=False)
+        evalm = self.eval_kwargs['metric']  
+        results = single_gpu_test(runner.model, self.dataloader, show=False, 
+                  eval=evalm if evalm[0]=='panoptic' else None)
         self.evaluate(runner, results)
 
     def evaluate(self, runner, results):
@@ -66,11 +68,14 @@ class DistEvalHook(EvalHook):
         if not self.every_n_epochs(runner, self.interval):
             return
         from mmdet.apis import multi_gpu_test
+        evalm = self.eval_kwargs['metric']  
         results = multi_gpu_test(
             runner.model,
             self.dataloader,
             tmpdir=osp.join(runner.work_dir, '.eval_hook'),
-            gpu_collect=self.gpu_collect)
+            gpu_collect=self.gpu_collect,
+            eval=evalm if evalm[0]=='panoptic' else None)
+
         if runner.rank == 0:
             print('\n')
             self.evaluate(runner, results)
