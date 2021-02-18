@@ -201,7 +201,7 @@ class FCNSepMaskHead(nn.Module):
                 im_mask = np.zeros((img_h, img_w), dtype=np.uint8)
                 im_mask[bbox[1]:bbox[1] + h, bbox[0]:bbox[0] + w] = bbox_mask
 
-            if rcnn_test_cfg.get('rle_mask_encode', False):
+            if rcnn_test_cfg.get('rle_mask_encode', True):
                 rle = mask_util.encode(
                     np.array(im_mask[:, :, np.newaxis], order='F'))[0]
                 cls_segms[label - 1].append(rle)

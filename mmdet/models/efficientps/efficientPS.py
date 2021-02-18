@@ -182,7 +182,7 @@ class EfficientPS(BaseDetector):
         x = self.extract_feat(img)
         losses = dict()
 
-        semantic_logits = self.semantic_head(x)
+        semantic_logits = self.semantic_head(x[:4])
         loss_seg = self.semantic_head.loss(semantic_logits, gt_semantic_seg)
         losses.update(loss_seg)
 
@@ -240,7 +240,7 @@ class EfficientPS(BaseDetector):
     def simple_test(self, img, img_metas, proposals=None, rescale=False, eval=None):
 
         x = self.extract_feat(img)
-        semantic_logits = self.semantic_head(x)
+        semantic_logits = self.semantic_head(x[:4])
         result = []
         if semantic_logits.shape[0] == 1:
             proposal_list = self.simple_test_rpn(x, img_metas,
@@ -398,7 +398,7 @@ class EfficientPS(BaseDetector):
             i = 0 
             for id_i in idx:
                 label_i = det_labels[id_i] 
-                mask_pred_i = mask_pred[id_i, label_i, :, :]
+                mask_pred_i = mask_pred[id_i, label_i+1, :, :]
                 mask_i = (mask_pred_i.sigmoid() > self.test_cfg.rcnn.mask_thr_binary) 
                 mask_i = mask_i.type(torch.bool)
                 intersection = occupied & mask_i
