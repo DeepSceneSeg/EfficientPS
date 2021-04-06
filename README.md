@@ -105,7 +105,10 @@ Test with multiple GPUS:
 ```
 
 ## Pre-Trained Models
-Coming Soon !!!
+| Dataset   |  Model | PQ |
+|-----------|:-----------------:|--------------|
+| Cityscapes| [Download](http://panoptic.cs.uni-freiburg.de/static/models/efficientPS_cityscapes.zip) | 64.4 |
+|    KITTI  | [Download](http://panoptic.cs.uni-freiburg.de/static/models/efficientPS_kitti.zip) | 42.5| 
 
 ## Additional Notes:
    * We only provide the single scale evaluation script. Multi-Scale+Flip evaluation further imporves the performance of the model.
