@@ -1,6 +1,7 @@
 #include <tuple>
 
 #include <torch/extension.h>
+#include <torch/torch.h>
 
 #include "utils/checks.h"
 #include "roi_sampling.h"
@@ -9,15 +10,15 @@ std::tuple<at::Tensor, at::Tensor> roi_sampling_forward(
     const at::Tensor& x, const at::Tensor& bbx, const at::Tensor& idx, std::tuple<int, int> out_size,
     Interpolation interpolation, PaddingMode padding, bool valid_mask) {
   // Check dimensions
-  AT_CHECK(x.ndimension() == 4, "x must be a 4-dimensional tensor");
-  AT_CHECK(bbx.ndimension() == 2, "bbx must be a 2-dimensional tensor");
-  AT_CHECK(idx.ndimension() == 1, "idx must be a 1-dimensional tensor");
-  AT_CHECK(bbx.size(0) == idx.size(0), "idx and bbx must have the same size in the first dimension");
-  AT_CHECK(bbx.size(1) == 4, "bbx must be N x 4");
+  TORCH_CHECK(x.ndimension() == 4, "x must be a 4-dimensional tensor");
+  TORCH_CHECK(bbx.ndimension() == 2, "bbx must be a 2-dimensional tensor");
+  TORCH_CHECK(idx.ndimension() == 1, "idx must be a 1-dimensional tensor");
+  TORCH_CHECK(bbx.size(0) == idx.size(0), "idx and bbx must have the same size in the first dimension");
+  TORCH_CHECK(bbx.size(1) == 4, "bbx must be N x 4");
 
   // Check types
-  AT_CHECK(bbx.scalar_type() == at::ScalarType::Float, "bbx must have type float32");
-  AT_CHECK(idx.scalar_type() == at::ScalarType::Long, "idx must have type long");
+  TORCH_CHECK(bbx.scalar_type() == at::ScalarType::Float, "bbx must have type float32");
+  TORCH_CHECK(idx.scalar_type() == at::ScalarType::Long, "idx must have type long");
 
   if (x.is_cuda()) {
     CHECK_CUDA(bbx);
@@ -36,15 +37,15 @@ at::Tensor roi_sampling_backward(
     const at::Tensor& dy, const at::Tensor& bbx, const at::Tensor& idx, std::tuple<int, int, int> in_size,
     Interpolation interpolation, PaddingMode padding) {
   // Check dimensions
-  AT_CHECK(dy.ndimension() == 4, "dy must be a 4-dimensional tensor");
-  AT_CHECK(bbx.ndimension() == 2, "bbx must be a 2-dimensional tensor");
-  AT_CHECK(idx.ndimension() == 1, "idx must be a 1-dimensional tensor");
-  AT_CHECK(bbx.size(0) == idx.size(0), "idx and bbx must have the same size in the first dimension");
-  AT_CHECK(bbx.size(1) == 4, "bbx must be N x 4");
+  TORCH_CHECK(dy.ndimension() == 4, "dy must be a 4-dimensional tensor");
+  TORCH_CHECK(bbx.ndimension() == 2, "bbx must be a 2-dimensional tensor");
+  TORCH_CHECK(idx.ndimension() == 1, "idx must be a 1-dimensional tensor");
+  TORCH_CHECK(bbx.size(0) == idx.size(0), "idx and bbx must have the same size in the first dimension");
+  TORCH_CHECK(bbx.size(1) == 4, "bbx must be N x 4");
 
   // Check types
-  AT_CHECK(bbx.scalar_type() == at::ScalarType::Float, "bbx must have type float32");
-  AT_CHECK(idx.scalar_type() == at::ScalarType::Long, "idx must have type long");
+  TORCH_CHECK(bbx.scalar_type() == at::ScalarType::Float, "bbx must have type float32");
+  TORCH_CHECK(idx.scalar_type() == at::ScalarType::Long, "idx must have type long");
 
   if (dy.is_cuda()) {
     CHECK_CUDA(bbx);

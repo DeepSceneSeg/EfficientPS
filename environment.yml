@@ -77,8 +77,8 @@ dependencies:
     - terminaltables==3.1.0
     - tifffile==2021.1.14
     - toml==0.10.2
-    - torch==1.4.0
-    - torchvision==0.5.0
+    - torch==1.7.1
+    - torchvision==0.8.2
     - tqdm==4.56.0
     - typing==3.7.4.3
     - typing-extensions==3.7.4.3

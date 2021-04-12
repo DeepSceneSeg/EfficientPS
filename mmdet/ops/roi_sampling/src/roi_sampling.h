@@ -4,6 +4,7 @@
 #include <tuple>
 
 #include <ATen/ATen.h>
+#include <torch/torch.h>
 
 #include "utils/common.h"
 
@@ -216,7 +217,7 @@ INLINE_HOST_DEVICE coord_t img_to_img(coord_t s, coord_t size_in, coord_t size_o
 [&] {                                                                            \
   switch (INTERPOLATION) {                                                       \
   case Interpolation::Bilinear:                                                  \
-    AT_CHECK(!std::is_integral<scalar_t>::value,                                 \
+    TORCH_CHECK(!std::is_integral<scalar_t>::value,                                 \
              "Bilinear interpolation is not available for integral types");      \
     switch (PADDING) {                                                           \
     case PaddingMode::Zero: {                                                    \
