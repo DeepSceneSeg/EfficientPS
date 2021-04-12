@@ -26,7 +26,7 @@ http://rl.uni-freiburg.de/research/panoptic
 ## System Requirements
 * Linux 
 * Python 3.7
-* PyTorch 1.4 
+* PyTorch 1.7
 * CUDA 10.2
 * GCC 7 or 8
 
