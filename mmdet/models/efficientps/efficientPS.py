@@ -363,6 +363,8 @@ class EfficientPS(BaseDetector):
         scale_factor = img_metas[0]['scale_factor']
         ref_size = (np.int(np.round(ori_shape[0]*scale_factor)), 
                     np.int(np.round(ori_shape[1]*scale_factor)))
+        semantic_logits = F.interpolate(semantic_logits, size=ref_size, 
+                                   mode="bilinear", align_corners=False)   
         sem_pred = torch.argmax(semantic_logits, dim=1)[0]
         panoptic_mask = torch.zeros_like(sem_pred, dtype=torch.long)
         cat = [255]
