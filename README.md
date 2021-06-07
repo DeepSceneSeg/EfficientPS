@@ -111,6 +111,8 @@ Test with multiple GPUS:
 |    KITTI  | [Download](http://panoptic.cs.uni-freiburg.de/static/models/efficientPS_kitti.zip) | 42.5| 
 
 ## Additional Notes:
+   * tool/cityscapes_inference.py: saves predictions in the official cityscapes panoptic format.
+   * tool/cityscapes_save_predictions.py: saves color visualizations.
    * We only provide the single scale evaluation script. Multi-Scale+Flip evaluation further imporves the performance of the model.
    * This is a re-implementation of EfficientPS in PyTorch. The performance of the trained models might slightly differ from the metrics reported in the paper. Please refer to the metrics reported in [EfficientPS: Efficient Panoptic Segmentation](https://arxiv.org/abs/2004.02307) when making comparisons.
 
