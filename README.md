@@ -79,7 +79,7 @@ python tools/convert_cityscapes.py ROOT_DIRECTORY_OF_CITYSCAPES ./data/cityscape
 cd ..
 git clone https://github.com/mcordts/cityscapesScripts.git
 cd cityscapesScripts/cityscapesscripts/preparation
-python create createPanopticImgs.py --dataset-folder ROOT_DIRECTORY_OF_CITYSCAPES --output-folder ../../../EfficientPS/data/cityscapes --set-names val
+python createPanopticImgs.py --dataset-folder path_to_cityscapes_gtFine_folder --output-folder ../../../EfficientPS/data/cityscapes --set-names val
 ```
 
 ## Training and Evaluation
