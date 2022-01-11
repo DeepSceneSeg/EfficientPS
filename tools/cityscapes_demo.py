@@ -85,7 +85,7 @@ def main():
             cv2.imshow('panopitc', out)
             ch = cv2.waitKey(args.wait)
 
-        cv2.imwrite(os.path.join(args.out, img_file), img)
+        cv2.imwrite(os.path.join(args.out, img_file), out)
 
 if __name__ == '__main__':
     main()
