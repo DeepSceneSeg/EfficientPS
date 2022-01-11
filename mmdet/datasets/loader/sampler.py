@@ -13,6 +13,11 @@ class DistributedSampler(_DistributedSampler):
     def __init__(self, dataset, num_replicas=None, rank=None, shuffle=True):
         super().__init__(dataset, num_replicas=num_replicas, rank=rank)
         self.shuffle = shuffle
+        self.samples_per_gpu = samples_per_gpu
+        self.num_samples = int(
+              math.ceil(len(self.dataset) * 1.0 / self.samples_per_gpu /
+                        self.num_replicas)) * self.samples_per_gpu
+        self.total_size = self.num_samples * self.num_replicas
 
     def __iter__(self):
         # deterministically shuffle based on epoch

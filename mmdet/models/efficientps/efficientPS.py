@@ -238,7 +238,6 @@ class EfficientPS(BaseDetector):
 
 
     def simple_test(self, img, img_metas, proposals=None, rescale=False, eval=None):
-
         x = self.extract_feat(img)
         semantic_logits = self.semantic_head(x[:4])
         result = []
@@ -386,7 +385,7 @@ class EfficientPS(BaseDetector):
             mask_pred = self.mask_head(mask_feats)
             confidence = det_bboxes[:,4]
             idx = torch.argsort(confidence, descending=True)
-            bbx_inv = invert_roi_bbx(det_bboxes[:, :4], 
+            bbx_inv = invert_roi_bbx(_bboxes[:, :4], 
                       tuple(mask_pred.shape[2:]), ref_size)
             bbx_idx = torch.arange(0, det_bboxes.size(0), 
                       dtype=torch.long, device=det_bboxes.device)
@@ -410,10 +409,10 @@ class EfficientPS(BaseDetector):
                 mask_i = mask_i ^ intersection
                 occupied += mask_i
 
-                y0 = max(int(det_bboxes[id_i, 1] + 1), 0)
-                y1 = min(int((det_bboxes[id_i, 3] - 1).round() + 1), ref_size[0])
-                x0 = max(int(det_bboxes[id_i, 0] + 1), 0)
-                x1 = min(int((det_bboxes[id_i, 2] - 1).round() + 1), ref_size[1])
+                y0 = max(int(_bboxes[id_i, 1] + 1), 0)
+                y1 = min(int((_bboxes[id_i, 3] - 1).round() + 1), ref_size[0])
+                x0 = max(int(_bboxes[id_i, 0] + 1), 0)
+                x1 = min(int((_bboxes[id_i, 2] - 1).round() + 1), ref_size[1])
 
                 ML_A[i] = 4 * mask_pred_i
                 ML_B[i, y0: y1, x0: x1] = semantic_logits[0, label_i + self.num_stuff, y0: y1, x0: x1]

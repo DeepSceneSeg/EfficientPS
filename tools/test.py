@@ -5,7 +5,7 @@ import mmcv
 import torch
 from mmcv.parallel import MMDataParallel, MMDistributedDataParallel
 from mmcv.runner import get_dist_info, init_dist, load_checkpoint
-from tools.fuse_conv_bn import fuse_module
+#from tools.fuse_conv_bn import fuse_module
 
 from mmdet.apis import multi_gpu_test, single_gpu_test
 from mmdet.core import wrap_fp16_model
