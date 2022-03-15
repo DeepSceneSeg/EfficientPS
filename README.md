@@ -7,7 +7,7 @@
 
 EfficientPS is a state-of-the-art top-down approach for panoptic segmentation, where the goal is to assign semantic labels (e.g., car, road, tree and so on) to every pixel in the input image as well as instance labels (e.g. an id of 1, 2, 3, etc) to pixels belonging to thing classes.
 
-![Illustration of EfficientPS](/images/intro.png)
+![Illustration of EfficientPS](./images/intro.png)
 
 This repository contains the **PyTorch implementation** of our IJCV'2021 paper [EfficientPS: Efficient Panoptic Segmentation](https://arxiv.org/abs/2004.02307). The repository builds on [mmdetection](https://github.com/open-mmlab/mmdetection) and [gen-efficientnet-pytorch](https://github.com/rwightman/gen-efficientnet-pytorch) codebases.
 
@@ -20,8 +20,12 @@ If you find the code useful for your research, please consider citing our paper:
   year={2021}
 }
 ```
+
+<a href="https://github.com/opendr-eu/opendr"><img src="./images/opendr_logo.png" alt="drawing" width="250"/></a><br>
+EfficientPS is also featured in the [OpenDR toolkit](https://github.com/opendr-eu/opendr).
+
 ## Demo
-http://rl.uni-freiburg.de/research/panoptic
+Samples of the results can be found on the [project website](http://panoptic.cs.uni-freiburg.de/).
 
 ## System Requirements
 * Linux 
@@ -63,14 +67,14 @@ EfficientPS
 ├── mmdet
 ├── tools
 ├── configs
-├── data
-│   ├── cityscapes
-│   │   ├── annotations
-│   │   ├── train
-│   │   ├── val
-│   │   ├── stuffthingmaps
-│   │   ├── cityscapes_panoptic_val.json
-│   │   ├── cityscapes_panoptic_val
+└── data
+    └── cityscapes
+        ├── annotations
+        ├── train
+        ├── val
+        ├── stuffthingmaps
+        ├── cityscapes_panoptic_val.json
+        └── cityscapes_panoptic_val
 ```
 The cityscapes annotations have to be converted into the aforementioned format using
 `tools/convert_datasets/cityscapes.py`:
@@ -117,7 +121,7 @@ Test with multiple GPUS:
    * This is a re-implementation of EfficientPS in PyTorch. The performance of the trained models might slightly differ from the metrics reported in the paper. Please refer to the metrics reported in [EfficientPS: Efficient Panoptic Segmentation](https://arxiv.org/abs/2004.02307) when making comparisons.
 
 ## Acknowledgements
-We have used utility functions from other open-source projects. We espeicially thank the authors of:
+We have used utility functions from other open-source projects. We especially thank the authors of:
 - [mmdetection](https://github.com/open-mmlab/mmdetection)
 - [gen-efficientnet-pytorch](https://github.com/rwightman/gen-efficientnet-pytorch)
 - [seamseg](https://github.com/mapillary/seamseg.git)

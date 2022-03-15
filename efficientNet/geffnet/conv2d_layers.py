@@ -8,7 +8,10 @@ Copyright 2020 Ross Wightman
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torch._six import container_abcs
+try:
+    from torch._six import container_abcs
+except ImportError:
+    from collections import abc as container_abcs
 
 from itertools import repeat
 from functools import partial
