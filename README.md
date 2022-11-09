@@ -111,8 +111,8 @@ Test with multiple GPUS:
 ## Pre-Trained Models
 | Dataset   |  Model | PQ |
 |-----------|:-----------------:|--------------|
-| Cityscapes| [Download](http://panoptic.cs.uni-freiburg.de/static/models/efficientPS_cityscapes.zip) | 64.4 |
-|    KITTI  | [Download](http://panoptic.cs.uni-freiburg.de/static/models/efficientPS_kitti.zip) | 42.5| 
+| Cityscapes| [Download](https://www.dropbox.com/s/zihqct9zum8eq66/efficientPS_cityscapes.zip?dl=0) | 64.4 |
+|    KITTI  | [Download](https://www.dropbox.com/s/4z3qiaew8qq7y8n/efficientPS_kitti.zip?dl=0) | 42.5| 
 
 ## Additional Notes:
    * tool/cityscapes_inference.py: saves predictions in the official cityscapes panoptic format.
